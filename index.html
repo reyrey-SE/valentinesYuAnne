@@ -18,16 +18,26 @@
     }
 
     .card {
-      position: relative;
-      width: 300px;
-      background-color: #fff;
-      border-radius: 15px;
-      padding: 20px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease;
-      text-align: center;
-      z-index: 10; /* Keep the card on top */
-    }
+  position: relative;
+  width: 90%; /* Make it responsive */
+  max-width: 350px; /* Adjust width */
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  text-align: center;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.card-content {
+  color: #555;
+  line-height: 1.6;
+  max-height: 300px; /* Limit height */
+  overflow-y: auto; /* Enable scrolling if text overflows */
+  padding-right: 5px; /* Prevent text cutoff */
+}
 
     .card:hover {
       transform: translateY(-5px);
