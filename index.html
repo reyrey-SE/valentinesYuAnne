@@ -1,116 +1,212 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Valentines</title>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background: #ffe6f2;
-            cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="%23ff3366" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>'), auto;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Valentine's Day Card</title>
+  <style>
+    /* Base styles */
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background-color: #ffebee;
+      font-family: 'Georgia', serif;
+      overflow: hidden; /* Prevent scrollbars from floating elements */
+    }
 
-        .valentine-letter {
-            position: relative;
-            padding: 20px;
-            background: linear-gradient(45deg, #ff3366, #ff6699);
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(255, 51, 102, 0.5);
-            max-width: 400px;
-            max-height: 80vh;
-            text-align: center;
-            color: white;
-            transform-style: preserve-3d;
-            transition: transform 0.5s;
-            z-index: 2;
-            overflow-y: auto;
-        }
+    .card {
+      position: relative;
+      width: 300px;
+      background-color: #fff;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+      text-align: center;
+      z-index: 10; /* Keep the card on top */
+    }
 
-        .valentine-letter:hover {
-            transform: scale(1.02);
-        }
+    .card:hover {
+      transform: translateY(-5px);
+    }
 
-        .title {
-            font-family: 'Great Vibes', cursive;
-            font-size: 3em;
-            margin-bottom: 15px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-            background: linear-gradient(45deg, #ffffff, #ffeb3b);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+    .card-title {
+      font-size: 1.8em;
+      margin-bottom: 15px;
+      color: #e91e63;
+      font-family: 'Brush Script MT', cursive;
+    }
 
-        .message {
-            font-family: 'Dancing Script', cursive;
-            font-size: 1.4em;
-            line-height: 1.5;
-            text-align: left;
-        }
+    .card-content {
+      color: #555;
+      line-height: 1.6;
+    }
 
-        .highlight {
-            color: #ffeb3b;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-        }
+    .toggle-btn {
+      display: block;
+      margin: 15px auto 0;
+      padding: 8px 16px;
+      background-color: #e91e63;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background-color 0.3s ease;
+    }
 
-        /* Floating Hearts */
-        .floating-hearts span {
-            position: absolute;
-            font-size: 1.2em;
-            color: rgba(255, 255, 255, 0.8);
-            animation: float 8s infinite linear;
-            pointer-events: none;
-        }
+    .toggle-btn:hover {
+      background-color: #c2185b;
+    }
 
-        @keyframes float {
-            0% { transform: translateY(100vh) rotate(0deg); }
-            100% { transform: translateY(-100vh) rotate(360deg); }
-        }
+    .hidden {
+      display: none;
+    }
 
-        /* Responsive Design */
-        @media (max-width: 600px) {
-            .title { font-size: 2.5em; }
-            .message { font-size: 1.2em; }
-            .valentine-letter { max-width: 90%; padding: 15px; }
-        }
-    </style>
+    .heart {
+      color: #e91e63;
+      font-size: 2em;
+      margin: 10px 0;
+    }
+
+    .heart::before {
+      content: '❤️';
+    }
+
+    /* Hide the audio element */
+    #valentineAudio {
+      display: none;
+    }
+
+    /* Floating elements container */
+    .floating-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none; /* So clicks pass through to other elements */
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    /* Floating item style */
+    .floating-item {
+      position: absolute;
+      bottom: -50px; /* Start just off the bottom */
+      color: #e91e63;
+      animation: floatUp linear forwards;
+    }
+
+    /* Keyframes for the floating animation */
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-120vh) scale(0.5);
+        opacity: 0;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="floating-hearts"></div>
-    
-    <div class="valentine-letter">
-        <h1 class="title">Happy Valentine's</h1>
-        <p class="message">
-            My love <span class="highlight">YuAnne</span>,<br><br>
-            I just wanted to take a moment to tell you how much you mean to me. You’re my favorite person, my happy place, and the reason I smile so much. Every day with you feels like a gift, and I’m so lucky to have you in my life.<br><br>
-            Your laugh is my favorite sound, and the way you care about the little things makes me fall for you all over again. You’re my best friend, my partner, and my everything. I don’t know how I got so lucky, but I’m so grateful for you.<br><br>
-            Happy Valentine’s Day, love. You’re my forever and always.<br><br>
-            Love you to the moon and back,<br>
-            <span class="highlight">Your love, Reynier</span>
-        </p>
+  <div class="card">
+    <h2 class="card-title">Happy Valentine's Day!</h2>
+    <div class="heart"></div>
+    <div class="card-content">
+      <p>Happy Valentines My Love YuAnne! 💕</p>
+      <div id="extra-content" class="hidden">
+        <p>My Love YuAnne,<br><br>Every moment i spend with you is a gift. Your smile brightens up my day, and your laughter is music to my ears. I'm so greatful to have you in my life. You're my partner, my bestfriend, and my soulmate.<br>
+        I love the way you make me feel when we're together like I'm home. I love our late-night conversations, our silly jokes, and our deep, meaningful talks. I love everything about you, from your beautiful eyes to your caring heart.<br>
+        Thank you for everything, my love. I promise to always cherish, support, and love you no matter what.<br><br>
+        Forever yours,<br>Reynier</p>
+      </div>
     </div>
+    <button class="toggle-btn" onclick="toggleContent()">Click for a Surprise!</button>
+  </div>
 
-    <script>
-        function createHeart() {
-            const heart = document.createElement('span');
-            heart.innerHTML = '❤';
-            heart.style.left = Math.random() * 100 + '%';
-            heart.style.animationDuration = Math.random() * 3 + 5 + 's';
-            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
-            heart.style.position = 'absolute';
-            heart.style.top = '100%';
-            document.body.appendChild(heart);
+  <!-- Floating hearts and love words container -->
+  <div class="floating-container"></div>
 
-            setTimeout(() => { heart.remove(); }, 8000);
-        }
+  <!-- Audio element for Valentine's sound -->
+  <audio id="valentineAudio" preload="auto">
+    <source src="https://assets.mixkit.co/active_storage/sfx/2570/2570-preview.mp3" type="audio/mpeg" />
+    Your browser does not support the audio element.
+  </audio>
 
-        setInterval(createHeart, 500);
-    </script>
+  <script>
+    // Toggle extra content and play sound when button is clicked.
+    function toggleContent() {
+      const extraContent = document.getElementById('extra-content');
+      extraContent.classList.toggle('hidden');
+
+      const audio = document.getElementById('valentineAudio');
+      audio.currentTime = 0; // Reset audio to start
+      audio.play().catch(error => {
+        console.log('Audio playback failed:', error);
+      });
+    }
+
+    // Floating hearts and love words functionality.
+    const floatingContainer = document.querySelector('.floating-container');
+    const loveWords = [
+      'Love',
+      'Amour',
+      'Passion',
+      'Romance',
+      'Sweetheart',
+      'Adore',
+      '❤️',
+      '💖',
+      'XOXO',
+      'Cuddle'
+    ];
+
+    function createFloatingItem() {
+      const item = document.createElement('div');
+      item.classList.add('floating-item');
+
+      // Randomly decide to use a love word or just a heart emoji.
+      const useWord = Math.random() > 0.5;
+      if (useWord) {
+        const word = loveWords[Math.floor(Math.random() * loveWords.length)];
+        item.textContent = word;
+      } else {
+        item.textContent = '❤️';
+      }
+
+      // Set a random horizontal starting position.
+      const startLeft = Math.random() * 100; // in viewport width percentage
+      item.style.left = startLeft + 'vw';
+
+      // Random font size between 16px and 36px.
+      const fontSize = 16 + Math.random() * 20;
+      item.style.fontSize = fontSize + 'px';
+
+      // Random animation duration between 4s and 8s.
+      const duration = 4 + Math.random() * 4;
+      item.style.animationDuration = duration + 's';
+
+      // Random animation delay between 0 and 5s.
+      const delay = Math.random() * 5;
+      item.style.animationDelay = delay + 's';
+
+      // Append the floating item to the container.
+      floatingContainer.appendChild(item);
+
+      // Remove the element once its animation is complete.
+      setTimeout(() => {
+        item.remove();
+      }, (duration + delay) * 1000);
+    }
+
+    // Create a new floating item periodically.
+    setInterval(createFloatingItem, 800);
+  </script>
 </body>
 </html>
