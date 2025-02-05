@@ -36,6 +36,13 @@
   text-align: justify;
     line-height: 1.8; 
   font-size: 16px;
+ overflow-y: auto; /* Enables scrolling */
+  scrollbar-width: none; /* Hides scrollbar for Firefox */
+  -ms-overflow-style: none; /* Hides scrollbar for IE & Edge */
+}
+
+.card-content::-webkit-scrollbar {
+  display: none; /* Hides scrollbar for Chrome, Safari, and Edge */
 }
 
 
