@@ -5,30 +5,30 @@
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <style>
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background: #ffe6f2 url('data:image/svg+xml,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><path fill="%23ff3366" d="M45.4,-58.4C57.8,-48.9,65.8,-33.4,66.5,-18.7C67.2,-4,60.6,10,53.1,22.8C45.6,35.6,37.2,47.2,25.3,53.9C13.4,60.6,-2.1,62.4,-16.7,59.3C-31.3,56.2,-45,48.2,-55.2,36.9C-65.5,25.6,-72.3,11.1,-71.8,-0.4C-71.3,-11.9,-63.6,-23.8,-53.9,-34.2C-44.2,-44.6,-32.5,-53.5,-19.1,-62.3C-5.8,-71.1,9.1,-79.7,22.7,-77.2C36.3,-74.6,48.5,-60.8,45.4,-58.4Z"/></svg>');
-            background-size: 100% 100%;
-            overflow: hidden;
-        }
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background: #ffe6f2;
+}
 
-        .valentine-letter {
-            position: relative;
-            padding: 40px;
-            background: linear-gradient(45deg, #ff3366, #ff6699);
-            border-radius: 15px;
-            box-shadow: 0 0 40px rgba(255, 51, 102, 0.5);
-            max-width: 600px;
-            text-align: center;
-            color: white;
-            transform-style: preserve-3d;
-            transition: transform 0.5s;
-            z-index: 2;
-            overflow: hidden;
-        }
+.valentine-letter {
+    position: relative;
+    padding: 40px;
+    background: linear-gradient(45deg, #ff3366, #ff6699);
+    border-radius: 15px;
+    box-shadow: 0 0 40px rgba(255, 51, 102, 0.5);
+    max-width: 600px;
+    max-height: 90vh;
+    text-align: center;
+    color: white;
+    transform-style: preserve-3d;
+    transition: transform 0.5s;
+    z-index: 2;
+    overflow-y: auto; /* Allows scrolling if content overflows */
+}
 
         .valentine-letter:hover {
             transform: scale(1.02) rotate(1deg);
